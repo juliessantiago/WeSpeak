@@ -21,6 +21,8 @@ io.on('connection', function(conexao){ //connection é um evento padrão do Sock
     })
 
     conexao.on('mensagemParaServidor', function(dado){ //Recebendo mensagem do cliente 
+        /*==========================Evento que envia mensagens no chat=======================*/ 
+       
         conexao.emit('mensagemChat', //devolvendo resposta ao cliente 
             {
                 apelido: dado.apelido, 
@@ -33,5 +35,20 @@ io.on('connection', function(conexao){ //connection é um evento padrão do Sock
                 mensagem: dado.mensagem
             }
         );
+/*======================Evento que atualiza a lista de participantes==========*/   
+//Resolver problema - toda vez que user manda mensagem, seu nome aparece novamente na lista   
+            conexao.emit('atualizaParticipantes', //devolvendo resposta ao cliente 
+             
+                {
+                    apelido: dado.apelido, 
+                }
+            );
+            conexao.broadcast.emit('atualizaParticipantes', //devolvendo resposta a todos no chat (exceto cliente que enviou) 
+            
+                {
+                    apelido: dado.apelido, 
+                }
+            );
+       
     })
 }) 
