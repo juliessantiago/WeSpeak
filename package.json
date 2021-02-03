@@ -1,0 +1,31 @@
+{
+  "name": "multiroom",
+  "version": "1.0.0",
+  "description": "multiroom chat",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juliessantiago/multiroom_chat.git"
+  },
+  "keywords": [
+    "multiroom"
+  ],
+  "author": "Julie Santiago",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/juliessantiago/multiroom_chat/issues"
+  },
+  "homepage": "https://github.com/juliessantiago/multiroom_chat#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "consign": "^0.1.6",
+    "ejs": "^2.5.6",
+    "express": "^4.15.3",
+    "express-validator": "^3.2.0",
+    "nodemon": "^2.0.4",
+    "socket.io": "^2.0.3"
+  }
+}
