@@ -19,4 +19,19 @@ io.on('connection', function(conexao){ //connection é um evento padrão do Sock
     conexao.on('disconnect', function(){ //disconnect também é evento padrão do Socket.io
         console.log('Usuário desconectou-se'); 
     })
+
+    conexao.on('mensagemParaServidor', function(dado){ //Recebendo mensagem do cliente 
+        conexao.emit('mensagemChat', //devolvendo resposta ao cliente 
+            {
+                apelido: dado.apelido, 
+                mensagem: dado.mensagem
+            }
+        );
+        conexao.broadcast.emit('mensagemChat', //devolvendo resposta a todos no chat (exceto cliente que enviou) 
+            {
+                apelido: dado.apelido, 
+                mensagem: dado.mensagem
+            }
+        );
+    })
 }) 

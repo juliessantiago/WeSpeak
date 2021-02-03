@@ -68,8 +68,8 @@
 			</div>
 		</nav>
 	
-		<div class="container">
-            <div class="row conversa" id="conversa">
+		<div class="container"> 
+            <div class="row conversa" id="conversa"> <!--Espaço onde são exibidas as conversas-->
 				
                 
             </div>
@@ -100,16 +100,17 @@
 		<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
 			<div class="container">
 				<div class="panel-body campo-mensagem">
-					<form>
+					
 						<div class="col-md-12">
 							<div class="input-group">
-								<input type="text" class="form-control" placeholder="Mensagem">
+								<input type="hidden" value="<%=dadosFormulario.apelido %>" id="apelido">
+								<input type="text" class="form-control" placeholder="Mensagem" id="msg">
 								<span class="input-group-btn">
-									<button class="btn btn-default" type="button">></button>
+									<button class="btn btn-info" type="button" id="envia_msg">Enviar</button>
 								</span>
 							</div>
 						</div>
-					</form>
+					
 				</div>
 			</div>
 		</nav>		
@@ -118,10 +119,30 @@
 		<script src="/socket.io/socket.io.js"></script> <!--Arquivos necessários para
 		que Socket.io funcione no lado do cliente-->
 		<script>
+
 			var socket = io('http://localhost:3000'); //Criando instância do objeto
-			socket.on('mensagem', function(dado){
-				swal(dado.apelido +' entrou no chat'); 
+
+			$('#envia_msg').click(function(){ //enviando mensagem do cliente para o servidor
+				socket.emit(
+					'mensagemParaServidor', //evento
+					{
+						apelido: $('#apelido').val(), 
+						mensagem: $('#msg').val()
+					}
+				)
+				
 			})
+			socket.on('mensagemParaCliente', function(dado){
+				swal(dado.apelido +' entrou no chat')
+			})
+			
+			socket.on('mensagemChat', function(dado){
+				 let html = '<div class="dialogo">'; 
+					html+= '<h3>' + dado.apelido + '</h3>'; 
+					html+= '<p>' +dado.mensagem  + '</p>'; 
+					
+				 $('#conversa').append(html)
+			  })
 		</script>
 	</body>
 </html>

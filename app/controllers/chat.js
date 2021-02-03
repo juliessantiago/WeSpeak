@@ -13,12 +13,15 @@ module.exports.inicia_chat = function(app, request, response){
     }
 
     app.get('io').emit(
-      'mensagem', 
+      'mensagemParaCliente', //evento de aviso quando user entra no chat 
       {
         apelido: dados.apelido, 
       }
     ) //método emit tem dois parâmetros: evento a ser disparado, estrutura de dados qualquer 
     //a estrutura de dados é recebida lá do lado do cliente através do parâmetro da função de callback do método ON
-    response.render('chat.ejs'); 
+    
+  
+    response.render('chat.ejs', {dadosFormulario: dados }); //passando JSON com dados do formulário
+    //para poder recuperar o nome da pessoa que entrou na página do chat 
 }
 
