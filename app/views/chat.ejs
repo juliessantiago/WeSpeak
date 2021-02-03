@@ -120,8 +120,15 @@
 		<script>
 			var socket = io('http://localhost:3000'); //Criando instância do objeto
 			socket.on('mensagem', function(dado){
-				alert (dado.apelido + ' entrou no chat')
+				Swal.fire({
+					title: 'Error!',
+					text: 'Do you want to continue',
+					icon: 'error',
+					confirmButtonText: 'Cool'
+				})
 			})
 		</script>
+		<script src="sweetalert2.all.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
 	</body>
 </html>
